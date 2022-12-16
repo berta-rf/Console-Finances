@@ -87,24 +87,31 @@ const finances = [
 ['Feb-2017', 671099]
 ];
 
-// <!-- Financial Analysis
+// Financial Analysis
 // ----------------------------
-// Total Months: 25
-// Total: $2561231
-// Average  Change: $-2315.12
+// Total Months: 86
+// Total: $38382578
+// Average  Change: $-2315.1176470588234
 // Greatest Increase in Profits: Feb-2012 ($1926159)
 // Greatest Decrease in Profits: Sep-2013 ($-2196167)
-//  -->
+let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
 
 // The total number of months included in the dataset.
 let months = finances.length;
 console.log(`Total Months: ${months}`);
 
 // The net total amount of Profit/Losses over the entire period.
+let total = 0;
 
-let profits = 0;
-let losses = 0;
+for (let i=0; i < months; i++){
+    console.log(finances[i][1]);
+    total += finances[i][1]
+}
 
+console.log(`Total: ${USDollar.format(total)}`);
 
 
 // The average of the changes in Profit/Losses over the entire period.
@@ -118,6 +125,3 @@ let losses = 0;
 
 
 // The greatest decrease in losses (date and amount) over the entire period.
-
-
-
