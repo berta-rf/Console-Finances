@@ -87,41 +87,55 @@ const finances = [
 ['Feb-2017', 671099]
 ];
 
-// Financial Analysis
-// ----------------------------
-// Total Months: 86
-// Total: $38382578
-// Average  Change: $-2315.1176470588234
+console.log("Financial Analysis")
+
+
 // Greatest Increase in Profits: Feb-2012 ($1926159)
 // Greatest Decrease in Profits: Sep-2013 ($-2196167)
-let USDollar = new Intl.NumberFormat('en-US', {
+
+//variable to turn numbers into $
+const USDollar = Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+    maximumFractionDigits: 0,
 });
 
-// The total number of months included in the dataset.
+// Total number of months included in the dataset
+
 let months = finances.length;
 console.log(`Total Months: ${months}`);
 
-// The net total amount of Profit/Losses over the entire period.
+// The net total amount of Profit/Losses over the entire period
 let total = 0;
 
-for (let i=0; i < months; i++){
-    console.log(finances[i][1]);
-    total += finances[i][1]
+for (let i=0; i < months; i++) {
+    total += finances[i][1];
 }
 
 console.log(`Total: ${USDollar.format(total)}`);
 
+// Average of changes in Profit/Losses over the entire period
 
-// The average of the changes in Profit/Losses over the entire period.
+let changesSum = 0;
+let averageChange = 0;
+let change = 0;
 
-// You will need to track what the total change in profits are from month to month and then find the average.
+// Track total change in profits from month to month and then find the average
+
+for (let i=1; i < months; i++) {
+
+    const current = finances[i][1];
+    const previous = finances[i-1][1];
+  
+    const change = current - previous;
+    changesSum += change;
+}
 // (Total/Number of months)
 
+averageChange = (changesSum / months);
+console.log(`Average Change: ${USDollar.format(averageChange)}`);
+
+// The greatest increase in profits (date and amount) over the entire period
 
 
-// The greatest increase in profits (date and amount) over the entire period.
-
-
-// The greatest decrease in losses (date and amount) over the entire period.
+// The greatest decrease in losses (date and amount) over the entire period
