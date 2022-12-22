@@ -122,6 +122,8 @@ let change = 0;
 
 // Track total change in profits from month to month and then find the average
 
+let balances = [];
+
 for (let i=1; i < months; i++) {
 
     const current = finances[i][1];
@@ -129,13 +131,35 @@ for (let i=1; i < months; i++) {
   
     const change = current - previous;
     changesSum += change;
-}
-// (Total/Number of months)
 
-averageChange = (changesSum / months);
+    const date = finances[i][0];
+    let balance = [date, change];
+    balances.push(balance);
+
+}
+
+let BestProfitMonth = balances[0];
+let WorstProfitMonth = balances[0]; 
+
+for (let i=1; i < balances.length; i++) {
+    
+    if (balances[i][1] > BestProfitMonth[1]) {
+        BestProfitMonth = balances[i];
+          
+    } else if (balances[i][1] < WorstProfitMonth[1]) {
+        WorstProfitMonth = balances[i];
+
+    }
+}
+
+
+// (Total/Number of months-1)
+averageChange = (changesSum / (months - 1));
 console.log(`Average Change: ${USDollar.format(averageChange)}`);
 
 // The greatest increase in profits (date and amount) over the entire period
+console.log(`Greatest Increase in Profits: ${BestProfitMonth[0]} (${USDollar.format(BestProfitMonth[1])})`);
 
 
 // The greatest decrease in losses (date and amount) over the entire period
+console.log(`Greatest Decrease in Profits: ${WorstProfitMonth[0]} (${USDollar.format(WorstProfitMonth[1])})`);
