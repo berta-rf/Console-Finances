@@ -88,22 +88,21 @@ const finances = [
 ];
 
 console.log("Financial Analysis")
+console.log("-------------------------------------");
 
-
-// Greatest Increase in Profits: Feb-2012 ($1926159)
-// Greatest Decrease in Profits: Sep-2013 ($-2196167)
 
 //variable to turn numbers into $
 const USDollar = Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
 });
 
 // Total number of months included in the dataset
 
 let months = finances.length;
 console.log(`Total Months: ${months}`);
+document.getElementById("months").innerHTML = months;
 
 // The net total amount of Profit/Losses over the entire period
 let total = 0;
@@ -113,6 +112,8 @@ for (let i=0; i < months; i++) {
 }
 
 console.log(`Total: ${USDollar.format(total)}`);
+document.getElementById("total").innerHTML = USDollar.format(total);
+
 
 // Average of changes in Profit/Losses over the entire period
 
@@ -153,13 +154,17 @@ for (let i=1; i < balances.length; i++) {
 }
 
 
-// (Total/Number of months-1)
-averageChange = (changesSum / (months - 1));
+// (Total / total months-1 or total of changes)
+averageChange = (changesSum / balances.length);
 console.log(`Average Change: ${USDollar.format(averageChange)}`);
+document.getElementById("averageChange").innerHTML = USDollar.format(averageChange);
+
 
 // The greatest increase in profits (date and amount) over the entire period
 console.log(`Greatest Increase in Profits: ${BestProfitMonth[0]} (${USDollar.format(BestProfitMonth[1])})`);
+document.getElementById("BestProfit").innerHTML = BestProfitMonth[0] + " (" + USDollar.format(BestProfitMonth[1]) + ")";
 
 
 // The greatest decrease in losses (date and amount) over the entire period
 console.log(`Greatest Decrease in Profits: ${WorstProfitMonth[0]} (${USDollar.format(WorstProfitMonth[1])})`);
+document.getElementById("WorstProfit").innerHTML = WorstProfitMonth[0] + " ("+ USDollar.format(WorstProfitMonth[1]) +")";
